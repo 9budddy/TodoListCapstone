@@ -1,0 +1,22 @@
+{
+  "name": "todolistcapstone",
+  "version": "1.0.0",
+  "description": "Create a todolist capstone project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/9budddy/TodoListCapstone.git"
+  },
+  "author": "Jarett A. Brown",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/9budddy/TodoListCapstone/issues"
+  },
+  "homepage": "https://github.com/9budddy/TodoListCapstone#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
