@@ -1,21 +1,70 @@
 //Jarett Brown
 
 import express from "express";
+import date from 'date-and-time';
+import bodyParser from "body-parser";
 
 const app = express();
 const port = 3001;
 app.use(express.static("public"));
 
-app.use("/", (req, res) => {
-    res.render("index.ejs");
-});
-  
-  /* Write your code here:
-  Step 1: Render the home page "/" index.ejs
-  Step 2: Make sure that static files are linked to and the CSS shows up.
-  Step 3: Add the routes to handle the render of the about and contact pages.
-    Hint: Check the nav bar in the header.ejs to see the button hrefs
-  Step 4: Add the partials to the about and contact pages to show the header and footer on those pages. */
+app.use(bodyParser.urlencoded({ extended: true }));
+
+let items = [];
+let workItems = [];
+let schoolItems = [];
+let index = 0;
+let workIndex = 0;
+let schoolIndex = 0;
+
+
+app.get("/", (req, res) => {
+  res.render("index.ejs", {
+    date: date.format(new Date(), 'ddd, MMMM DD, YYYY'),
+    items: items
+  });
+})
+
+app.get("/work", (req, res) => {
+  res.render("work.ejs", {
+    date: date.format(new Date(), 'ddd, MMMM DD, YYYY'),
+    items: workItems
+  });
+})
+
+app.get("/school", (req, res) => {
+  res.render("school.ejs", {
+    date: date.format(new Date(), 'ddd, MMMM DD, YYYY'),
+    items: schoolItems
+  });
+})
+
+
+app.post("/submit", (req, res) => {
+  if (req.body["list"] === "Today") {
+    const item = req.body["newItem"];
+    items[index] = item;
+    index++;
+
+    res.redirect("/");
+  } 
+  else if (req.body["list"] === "Work") {
+    const item = req.body["newItem"];
+    workItems[workIndex] = item;
+    workIndex++;
+
+    res.redirect("/work");
+  }
+  else if (req.body["list"] === "School") {
+    const item = req.body["newItem"];
+    schoolItems[schoolIndex] = item;
+    schoolIndex++;
+
+    res.redirect("/school");
+  }
+})
+
+
   
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
